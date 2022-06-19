@@ -1,0 +1,17 @@
+.book-container {
+    height: 100%;
+    margin: 20px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.img {
+	width: 150px;
+	height: 200px;
+}
+
+.author {
+    margin: 0;
+}

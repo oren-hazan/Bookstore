@@ -1,0 +1,11 @@
+.footer {
+    background-color: black;
+    display: flex;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+}
+
+.dev-name {
+    color: #888888;
+}

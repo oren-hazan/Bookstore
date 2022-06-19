@@ -1,0 +1,41 @@
+.sidebar-container {
+    display: none;
+    position: absolute;
+    top: 16px;
+    right: 0;
+}
+
+.sidebar {
+    display: flex;
+	flex-direction: column;
+	background-color: #0000ff;
+}
+.link, .logout-btn {
+	min-width: 10vw;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 6px;
+	cursor: pointer;
+}
+
+.logout-btn {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	text-align: left;
+}
+
+.show {
+	display: flex;
+}
+
+.close-btn {
+	width: 30px;
+	color: #ffffff;
+	background-color: black;
+	font-weight: bold;
+	border: none;
+	font-size: 25px;
+	cursor: pointer;
+}

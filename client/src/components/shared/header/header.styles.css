@@ -1,0 +1,28 @@
+.main-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 90px;
+	background-color: black;
+	padding: 0 10px 0 10px;
+}
+
+.main-header h1 {
+	color: white;
+}
+
+.hamburger-container {
+	height: 25px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+    cursor: pointer;
+}
+
+.hamburger {
+	display: flex;
+	width: 30px;
+	height: 5px;
+	background-color: #ffffff;
+	border-radius: 5px;
+}

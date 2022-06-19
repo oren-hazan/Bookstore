@@ -1,0 +1,23 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik&family=Rubik+Moonrocks&family=Rubik+Wet+Paint&display=swap');
+
+* {
+    box-sizing: border-box;
+     font-family: 'Rubik', sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    columns: #000000;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
