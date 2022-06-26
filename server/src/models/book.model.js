@@ -33,14 +33,6 @@ const bookSchema = new mongoose.Schema(
 			lowercase: true,
 		},
 	},
-	{
-		toJSON: {
-			virtuals: true,
-		},
-		toObject: {
-			virtuals: true,
-		},
-	}
 );
 
 bookSchema.methods.toJSON = function () {

@@ -1,0 +1,87 @@
+.cart-container .cart-footer {
+	display: flex;
+	flex-direction: column;
+}
+
+.cart-container {
+	min-height: calc(100vh - 160px);
+    flex-wrap: wrap;
+    margin: 0 10px 0 10px;
+}
+
+.total-price {
+	padding: 20px;
+	margin: 0 auto;
+}
+
+.checkout-btn {
+	font-size: 30px;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	color: white;
+	background-color: rgb(74, 83, 255);
+	cursor: pointer;
+	border: none;
+	padding: 10px;
+}
+
+.empty-cart {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    height: calc(100vh - 160px);
+}
+
+.cart-book-container {
+	display: flex;
+	text-align: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	min-height: 200px;
+	min-width: 300px;
+	justify-content: space-around;
+	border: 2px solid black;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+
+.cart-book-detail-container {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+
+.cart-book-cover {
+	width: 200px;
+	height: 200px;
+	padding: 20px;
+}
+
+.cart-book-detail-footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.price-and-btn-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 20px;
+}
+
+.delete-from-cart-btn {
+	margin-bottom: 10px;
+	border-radius: 5px;
+	color: white;
+	background-color: red;
+	cursor: pointer;
+	border: none;
+	height: 20px;
+}

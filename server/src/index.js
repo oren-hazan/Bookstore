@@ -9,7 +9,7 @@ import cartRouter from './routers/cart.router.js';
 
 dotenv.config();
 
-const PORT = environments.PORT;
+const PORT = environments.PORT || 3002;
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(bookRouter);
-app.use(userRouter)
+app.use(userRouter);
 app.use(cartRouter);
 
 app.listen(PORT, async () => {

@@ -1,16 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import './book.styles.css';
-import { BooksContext } from '../../../../contexts/books.context'
 
 const Book = (props) => {
 		const navigate = useNavigate();
-		const booksContextValue = useContext(BooksContext);
-		const singleBookId = props.id
+		const bookID = props.id
 
 	const handleClick = () => {
-		booksContextValue.setSingleBookIDState(singleBookId);
-		navigate(`/book/${singleBookId}`);
+		navigate(`/books/${bookID}`);
 	} 
 
 	return (

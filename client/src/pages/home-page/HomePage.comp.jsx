@@ -1,36 +1,58 @@
+import React, { useState, useEffect } from 'react';
 import './home-page.styles.css';
-import BooksContainer from './books-container/BooksContainer.comp';
-import React, { useEffect, useContext } from 'react';
-import { BooksContext } from '../../contexts/books.context';
-import { initBooksAction } from '../../actions/books.action';
+import Book from './book/Book.comp';
+import Loader from '../../components/shared/loader/Loader.comp'
+import environment from '../../environments/environments';
+
+const API_URL = environment.API_URL;
 
 const HomePage = () => {
-	const booksContextValue = useContext(BooksContext);
 
+const [booksState, setBooksState] = useState([])
+const [isLoading, setIsLoading] = useState(true)
 	useEffect(() => {
 		const getBooks = async () => {
 			try {
-				const response = await fetch('http://localhost:3000/books');
+				const response = await fetch(`${API_URL}/books`);
 				if (response.status !== 200) {
 					throw new Error();
 				}
 				const responseData = await response.json();
 				const books = responseData.data.books;
+
+				setBooksState(books)
 				console.log(books)
 
-				const action = initBooksAction(books);
-				booksContextValue.dispatchBooksState(action);
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 1500);
 			} catch (err) {
 				alert('Something wrong!');
 			}
 		};
+
 		getBooks();
 	}, []);
 	
-	return (
-		<div>
-			<BooksContainer />
-		</div>
+	return isLoading ? (
+		<Loader />
+	) : (
+		<ul className='books-container'>
+			{booksState.map((book, index) => {
+				return (
+					<Book
+						id={book._id}
+						author={book.author}
+						bookCovered={book.bookCovered}
+						description={book.description}
+						pages={book.pages}
+						price={book.price}
+						title={book.title}
+						index={index}
+					/>
+				);
+			})}
+		</ul>
 	);
 };
 

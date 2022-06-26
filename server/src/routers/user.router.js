@@ -10,8 +10,8 @@ router.post('/users/login', userController.login);
 
 router.post('/users/logout', userAuth, userController.logout)
 
-router.patch('/users/:userID', userAuth, userController.updateUser);
+router.patch('/users/me', userAuth, userController.updateUser);
 
-router.delete('/users/:userID', userAuth, userController.deleteUser);
+router.delete('/users/me', userAuth, userController.deleteUser);
 
 export default router;

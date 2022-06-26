@@ -1,26 +1,26 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'
 import './book-page.styles.css';
-import { BooksContext } from '../../contexts/books.context';
-import { initSingleBookAction } from '../../actions/books.action';
 import SingleBook from './single-book-page/SingleBook.comp';
+import environment from '../../environments/environments'
+
+const API_URL = environment.API_URL;
 
 const BookPage = () => {
-	const booksContextValue = useContext(BooksContext);
-
-	const bookID = booksContextValue.singleBookIDState;
-	const value = booksContextValue.singleBookState;
+	const params = useParams();
+	const [singleBookState, setSingleBookState] = useState({});
+	const value = singleBookState;
 
 	useEffect(() => {
 		const getBookByID = async () => {
 			try {
-				const response = await fetch(`http://localhost:3000/books/${bookID}`);
+				const response = await fetch(`${API_URL}/books/${params.bookID}`);
 				if (response.status !== 200) throw new Error();
 
 				const responseData = await response.json();
 				const book = responseData.data;
 
-				const action = initSingleBookAction(book);
-				booksContextValue.dispatchSingleBookState(action);
+				setSingleBookState(book)
 			} catch (err) {
 				alert('Something wrong!');
 			}

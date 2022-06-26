@@ -8,7 +8,7 @@
 .sidebar {
     display: flex;
 	flex-direction: column;
-	background-color: #0000ff;
+	background-color: black;
 }
 .link, .logout-btn {
 	min-width: 10vw;

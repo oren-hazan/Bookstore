@@ -1,12 +1,11 @@
 import Cart from '../models/cart.model.js';
 import Book from '../models/book.model.js';
-import User from '../models/user.model.js';
 
 export const showCart = async (req, res) => {
-	const userID = req.user._id;
+	const user = req.user;
 
 	try {
-		const userData = await User.findOne(userID).populate({
+		const userData = await user.populate({
 			path: 'myCart',
 			populate: { path: 'books.bookID' },
 		});
@@ -14,7 +13,9 @@ export const showCart = async (req, res) => {
 		res.status(200).send({
 			status: 200,
 			statusText: 'Ok',
-			data: userData.myCart,
+			data: {
+				cart: userData.myCart[0].books,
+			},
 			message: '',
 		});
 	} catch (err) {
@@ -29,7 +30,7 @@ export const showCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
 	const user = req.user._id;
-	const bookID = req.body;
+	const bookID = req.body.bookID;
 
 	try {
 		const bookData = await Book.findById(bookID);
@@ -42,7 +43,9 @@ export const addToCart = async (req, res) => {
 		res.status(202).send({
 			status: 202,
 			statusText: 'Accepted',
-			data: updateCart,
+			data: {
+				cart: updateCart,
+			},
 		});
 	} catch (err) {
 		console.log(err.message);
@@ -58,8 +61,9 @@ export const deleteFromCart = async (req, res) => {
 	const user = req.user._id;
 	const book = req.body;
 	try {
-		
-		await Cart.findOneAndUpdate(user, { $pull: { books: { bookID: book } }});
+		await Cart.findOneAndUpdate(user, {
+			$pull: { books: { bookID: book } },
+		});
 
 		const updateCart = await Cart.findOne(user).populate('books.bookID');
 
@@ -69,6 +73,7 @@ export const deleteFromCart = async (req, res) => {
 			data: updateCart,
 		});
 	} catch (err) {
+		console.log(err.message);
 		res.status(500).send({
 			status: 500,
 			statusText: 'Internal Server Error',

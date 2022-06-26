@@ -1,0 +1,28 @@
+.container {
+	width: 100vw;
+	height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.not-found-title {
+    font-size: 60px;
+    margin-bottom: 30px;
+}
+
+.not-found-text {
+    color: red
+}
+
+.go-back-btn {
+    background-color: rgb(48, 55, 247);
+    color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
