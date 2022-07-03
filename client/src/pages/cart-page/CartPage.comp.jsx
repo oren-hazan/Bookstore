@@ -1,19 +1,18 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './cart-page.styles.css';
 import { AuthContext } from '../../contexts/Auth.context';
 import Loader from '../../components/shared/loader/Loader.comp';
-import environment from '../../environments/environments'
+import environment from '../../environments/environments';
+import CartBook from './cart-book/CartBook.comp';
 
 const API_URL = environment.API_URL;
-
 
 const CartPage = () => {
 	const navigate = useNavigate();
 	const authContextValue = useContext(AuthContext);
 	const [cartState, setCartState] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [bookID, setBookID] = useState('');
 	const [price, setPrice] = useState('');
 	const userToken = authContextValue.userToken;
 
@@ -21,9 +20,8 @@ const CartPage = () => {
 		const pricesArray = [];
 		let pricesSum = 0;
 
-		cart.map((book, index) => {
+		cart.map((book) => {
 			pricesArray.push(book.bookID.price);
-			setBookID(cart[index].bookID._id);
 		});
 
 		for (let i = 0; i < pricesArray.length; i++) {
@@ -32,7 +30,7 @@ const CartPage = () => {
 		}
 	};
 
-	const handleClick = async () => {
+	const handleClick = async (bookID) => {
 		try {
 			const response = await fetch(`${API_URL}/cart`, {
 				method: 'DELETE',
@@ -46,10 +44,9 @@ const CartPage = () => {
 			if (response.status !== 200) throw new Error();
 			const responseData = await response.json();
 			const cart = responseData.data.books;
-			setCartState(cart)
+			setCartState(cart);
 
-			calcPrice(cart)
-			
+			calcPrice(cart);
 		} catch (err) {
 			alert('Something went wrong!');
 		}
@@ -64,6 +61,9 @@ const CartPage = () => {
 				},
 			});
 			if (response.status !== 202) throw new Error();
+			const responseData = await response.json();
+			const cart = responseData.data.books;
+			setCartState(cart);
 		} catch {
 			alert('Something went wrong!');
 		}
@@ -103,25 +103,14 @@ const CartPage = () => {
 			<ul>
 				{cartState.map((book) => {
 					return (
-						<div className='cart-book-container'>
-							<Link to={`/books/${book.bookID._id}`}>
-								<img
-									className='cart-book-cover'
-									src={book.bookID.bookCovered}
-									alt={book.bookID.title}
-								/>
-							</Link>
-							<div className='cart-book-detail-container'>
-								<h1 className='title'>{book.bookID.title}</h1>
-								<h3 className='author'>By {book.bookID.author}</h3>
-							</div>
-							<div className='price-and-btn-container'>
-								<div className='total-price'>Price: {book.bookID.price} $</div>
-								<button className='delete-from-cart-btn' onClick={handleClick}>
-									Remove
-								</button>
-							</div>
-						</div>
+						<CartBook
+							onClick={() => handleClick(book.bookID._id)}
+							bookCovered={book.bookID.bookCovered}
+							title={book.bookID.title}
+							author={book.bookID.author}
+							price={book.bookID.price}
+							id={book.bookID._id}
+						/>
 					);
 				})}
 			</ul>

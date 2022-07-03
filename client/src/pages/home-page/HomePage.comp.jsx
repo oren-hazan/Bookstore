@@ -21,7 +21,6 @@ const [isLoading, setIsLoading] = useState(true)
 				const books = responseData.data.books;
 
 				setBooksState(books)
-				console.log(books)
 
 				setTimeout(() => {
 					setIsLoading(false);

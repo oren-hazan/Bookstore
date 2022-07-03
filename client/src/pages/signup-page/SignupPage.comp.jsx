@@ -10,10 +10,13 @@ const SignupPage = () => {
 	const navigate = useNavigate();
 
 	const [isLoading, setIsLoading] = useState(true);
-	const AuthContextValue = useContext(AuthContext);
+	const authContextValue = useContext(AuthContext);
 
 	useEffect(() => {
-		if (AuthContextValue.userToken) {
+		if (authContextValue.adminToken) {
+			navigate('/admin/dashboard');
+			alert('Logout as a Admin first!');
+		} else if (authContextValue.userToken) {
 			navigate('/');
 		}
 		setTimeout(() => {

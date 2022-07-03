@@ -106,7 +106,7 @@ const LoginForm = () => {
 
 					navigate('/');
 				} catch (err) {
-					alert('Username or Password wrong!');
+					alert('Email or Password wrong!');
 				}
 				return;
 			} else {

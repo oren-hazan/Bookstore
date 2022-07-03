@@ -1,0 +1,40 @@
+.update-formModal {
+    	position: fixed;
+	top: 0;
+	justify-content: center;
+	align-items: center;
+	z-index: 200;
+
+	display: none;
+
+	width: 100vw;
+	height: 100vh;
+
+	background-color: #554f4fbb;
+}
+
+.show-update-form {
+	display: flex;
+}
+
+.btn-container {
+	display: flex;
+	min-width: 300px;
+}
+
+.update-form-btn,
+.delete-form-btn {
+	height: 30px;
+	margin: 20px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+}
+
+.update-form-btn {
+	background-color: lightgreen;
+}
+
+.delete-form-btn {
+	background-color: red;
+}

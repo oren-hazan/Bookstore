@@ -1,0 +1,29 @@
+.dashboard {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	min-height: calc(100vh - 150px);
+	background-color: lightgreen;
+}
+
+.dashboard-books-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.add-new-book-btn {
+	height: 30px;
+	width: 250px;
+	margin: 0 auto;
+    margin-top: 10px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	background-color: rgb(74, 83, 255);
+}
+
+.hide-btn {
+	display: none;
+}

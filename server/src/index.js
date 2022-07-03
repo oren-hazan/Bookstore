@@ -6,6 +6,7 @@ import connectToMongoDB from './databases/mongoose.db.js';
 import bookRouter from './routers/book.router.js';
 import userRouter from './routers/user.router.js';
 import cartRouter from './routers/cart.router.js';
+import adminRouter from './routers/admin.router.js';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(bookRouter);
 app.use(userRouter);
 app.use(cartRouter);
+app.use(adminRouter)
 
 app.listen(PORT, async () => {
 	console.log(`Server is running on port: ${PORT}`);

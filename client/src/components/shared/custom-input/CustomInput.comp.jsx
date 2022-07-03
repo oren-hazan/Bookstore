@@ -13,6 +13,7 @@ const CustomInput = (props) => {
 				placeholder={props.placeholder}
 				name={props.name}
 				required={props.required}
+				min={props.min}
 			/>
 			{!props.isValid && (
 				<div className='error-message'>{props.errorMessage}</div>

@@ -1,39 +1,34 @@
 import mongoose from 'mongoose';
 
-const bookSchema = new mongoose.Schema(
-	{
-		author: {
-			type: String,
-			required: true,
-			trim: true,
-			lowercase: true,
-		},
-		bookCovered: {
-			type: String,
-			required: true,
-		},
-		description: {
-			type: String,
-			required: true,
-			trim: true,
-			lowercase: true,
-		},
-		pages: {
-			type: Number,
-			required: true,
-		},
-		price: {
-			type: Number,
-			required: true,
-		},
-		title: {
-			type: String,
-			required: true,
-			trim: true,
-			lowercase: true,
-		},
+const bookSchema = new mongoose.Schema({
+	author: {
+		type: String,
+		required: true,
+		trim: true,
 	},
-);
+	bookCovered: {
+		type: String,
+		required: true,
+	},
+	description: {
+		type: String,
+		required: true,
+		trim: true,
+	},
+	pages: {
+		type: Number,
+		required: true,
+	},
+	price: {
+		type: Number,
+		required: true,
+	},
+	title: {
+		type: String,
+		required: true,
+		trim: true,
+	},
+});
 
 bookSchema.methods.toJSON = function () {
 	const book = this;

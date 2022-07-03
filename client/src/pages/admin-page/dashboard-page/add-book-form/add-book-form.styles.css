@@ -1,0 +1,120 @@
+.formModal {
+	position: fixed;
+	top: 0;
+	justify-content: center;
+	align-items: center;
+	z-index: 200;
+
+	display: none;
+
+	width: 100vw;
+	height: 100vh;
+
+	background-color: #554f4fbb;
+}
+
+.show-book-form {
+	display: flex;
+}
+
+.add-book-form {
+	display: flex;
+	max-width: 460px;
+	background-color: white;
+	border: 2px solid black;
+	border-radius: 8px;
+	flex-direction: column;
+	align-items: center;
+	min-height: 450px;
+}
+
+.add-book-form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.form-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#title,
+#author {
+	text-transform: capitalize;
+	margin-bottom: 10px;
+	margin-top: 2px;
+}
+
+/* #description::first-letter {
+		text-transform: capitalize;
+
+} */
+
+.save-form-btn,
+.close-form-btn {
+	height: 30px;
+	width: 50px;
+	margin: 20px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+}
+
+.save-form-btn {
+	background-color: lightgreen;
+}
+
+.close-form-btn {
+	background-color: rgb(74, 83, 255);
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+@media screen and (min-width: 460px) {
+	.big-input {
+		width: 430px;
+		max-width: 430px;
+	}
+}
+
+@media screen and (max-width: 460px) {
+	#description {
+		max-width: 200px;
+	}
+}
+
+#description {
+	height: 100%;
+	width: 430px;
+	margin-top: 2px;
+	padding: 5px 15px;
+	border: 2px solid gray;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.add-book-label {
+	padding-left: 15px;
+}
+
+#bookCovered {
+	margin-top: 2px;
+
+	margin-bottom: 10px;
+}
+
+#pages,
+#price {
+	margin-top: 2px;
+}
+

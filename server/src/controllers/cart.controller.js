@@ -59,11 +59,19 @@ export const addToCart = async (req, res) => {
 
 export const deleteFromCart = async (req, res) => {
 	const user = req.user._id;
-	const book = req.body;
+	const bookID = req.body._id;
 	try {
-		await Cart.findOneAndUpdate(user, {
-			$pull: { books: { bookID: book } },
-		});
+		const cart = await Cart.findOne(user);
+		const booksArr = cart.books;
+		for (let i = 0; i < booksArr.length; i++) {
+			if (booksArr[i].bookID.toString() === bookID) {
+				console.log(booksArr[i].bookID);
+				booksArr.splice(i, 1);
+				break;
+			}
+		}
+
+		await cart.save();
 
 		const updateCart = await Cart.findOne(user).populate('books.bookID');
 

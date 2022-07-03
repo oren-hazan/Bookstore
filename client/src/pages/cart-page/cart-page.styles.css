@@ -4,14 +4,9 @@
 }
 
 .cart-container {
-	min-height: calc(100vh - 160px);
+	min-height: calc(100vh - 150px);
     flex-wrap: wrap;
     margin: 0 10px 0 10px;
-}
-
-.total-price {
-	padding: 20px;
-	margin: 0 auto;
 }
 
 .checkout-btn {
@@ -34,32 +29,6 @@
     height: calc(100vh - 160px);
 }
 
-.cart-book-container {
-	display: flex;
-	text-align: center;
-	flex-direction: row;
-	flex-wrap: wrap;
-	min-height: 200px;
-	min-width: 300px;
-	justify-content: space-around;
-	border: 2px solid black;
-	border-radius: 3px;
-	margin-bottom: 10px;
-}
-
-.cart-book-detail-container {
-	width: 300px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin-bottom: 10px;
-}
-
-.cart-book-cover {
-	width: 200px;
-	height: 200px;
-	padding: 20px;
-}
 
 .cart-book-detail-footer {
 	display: flex;
@@ -69,19 +38,7 @@
 	margin-top: 10px;
 }
 
-.price-and-btn-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: 20px;
-}
-
-.delete-from-cart-btn {
-	margin-bottom: 10px;
-	border-radius: 5px;
-	color: white;
-	background-color: red;
-	cursor: pointer;
-	border: none;
-	height: 20px;
+.total-price {
+	padding: 20px;
+	margin: 0 auto;
 }

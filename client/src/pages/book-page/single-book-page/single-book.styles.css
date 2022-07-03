@@ -1,7 +1,7 @@
 .single-book-container {
 	display: flex;
 	flex-wrap: wrap;
-	min-height: calc(100vh - 160px);
+	min-height: calc(100vh - 150px);
 	justify-content: space-around;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .book-cover {
-	min-width: 20vw;
+	min-width: 200px;
 	height: 280px;
 	padding: 20px;
 }
@@ -37,7 +37,8 @@
 	cursor: pointer;
 	border: none;
 	max-width: 30vw;
-	min-width: 200px;
+	min-width: 150px;
 }
+
 
 
