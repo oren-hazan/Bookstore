@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './home-page.styles.css';
 import Book from './book/Book.comp';
 import Loader from '../../components/shared/loader/Loader.comp'
-import environment from '../../environments/environments';
-
-const API_URL = environment.API_URL;
+import { getAllBooks } from '../../services/book.service'
 
 const HomePage = () => {
 
@@ -13,12 +11,7 @@ const [isLoading, setIsLoading] = useState(true)
 	useEffect(() => {
 		const getBooks = async () => {
 			try {
-				const response = await fetch(`${API_URL}/books`);
-				if (response.status !== 200) {
-					throw new Error();
-				}
-				const responseData = await response.json();
-				const books = responseData.data.books;
+				const books = await getAllBooks()
 
 				setBooksState(books)
 

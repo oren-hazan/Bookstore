@@ -170,26 +170,26 @@ const addBookFormReducer = (state, action) => {
 			};
 			return updatedState;
 		}
-		// case bookFormActionTypes.UPDATE_BOOK: {
-		// 	const index = action.payload.index;
-		// 	const updateTitle = action.payload.title;
-		// 	const updateAuthor = action.payload.author;
-		// 	const updateDescription = action.payload.description;
-		// 	const updateBookCovered = action.payload.bookCovered;
-		// 	const updatePages = action.payload.pages;
-		// 	const updatePrice = action.payload.price;
+		case bookFormActionTypes.UPDATE_BOOK: {
+			const index = action.payload.index;
+			const updateTitle = action.payload.title;
+			const updateAuthor = action.payload.author;
+			const updateDescription = action.payload.description;
+			const updateBookCovered = action.payload.bookCovered;
+			const updatePages = action.payload.pages;
+			const updatePrice = action.payload.price;
 
 
-		// 	const updateState = [...state];
-		// 	updateState[index].title = updateTitle;
-		// 	updateState[index].author = updateAuthor;
-		// 	updateState[index].description = updateDescription;
-		// 	updateState[index].bookCovered = updateBookCovered;
-		// 	updateState[index].pages = updatePages;
-		// 	updateState[index].price = updatePrice;
+			const updateState = [...state];
+			updateState[index].title = updateTitle;
+			updateState[index].author = updateAuthor;
+			updateState[index].description = updateDescription;
+			updateState[index].bookCovered = updateBookCovered;
+			updateState[index].pages = updatePages;
+			updateState[index].price = updatePrice;
 
-		// 	return updateState;
-		// }
+			return updateState;
+		}
 
 		case bookFormActionTypes.DELETE_BOOK: {
 			const bookID = action.payload.bookID;

@@ -69,7 +69,7 @@ export const createBook = async (req, res) => {
 export const updateBook = async (req, res) => {
 	const bookID = req.params.bookID;
 	const data = req.body;
-
+	
 	try {
 		await Book.findByIdAndUpdate(bookID, data);
 		res.status(200).send({

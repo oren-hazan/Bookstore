@@ -24,6 +24,7 @@ const userAuth = async (req, res, next) => {
 		req.user = user;
 		req.token = token;
 
+
 		next();
 	} catch {
 		res.status(401).send({

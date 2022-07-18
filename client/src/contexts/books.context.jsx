@@ -9,10 +9,10 @@ const BooksContextProvider = (props) => {
     const [ booksState, dispatchBooksState] = useReducer(booksReducer, BOOKS_INITIAL_STATE)
     const [singleBookState, dispatchSingleBookState] = useReducer(booksReducer, SINGLE_BOOK_INITIAL_STATE)
     const value = {
-        booksState: booksState,
-        dispatchBooksState: dispatchBooksState,
-        singleBookState: singleBookState,
-        dispatchSingleBookState: dispatchSingleBookState,
+        booksState,
+        dispatchBooksState,
+        singleBookState,
+        dispatchSingleBookState,
 
     }
 

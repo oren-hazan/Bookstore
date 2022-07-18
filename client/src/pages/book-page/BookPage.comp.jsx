@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import './book-page.styles.css';
 import SingleBook from './single-book-page/SingleBook.comp';
-import environment from '../../environments/environments'
-
-const API_URL = environment.API_URL;
+import { getBook } from '../../services/book.service'
 
 const BookPage = () => {
 	const params = useParams();
@@ -13,12 +11,9 @@ const BookPage = () => {
 
 	useEffect(() => {
 		const getBookByID = async () => {
+			const bookID = params.bookID
 			try {
-				const response = await fetch(`${API_URL}/books/${params.bookID}`);
-				if (response.status !== 200) throw new Error();
-
-				const responseData = await response.json();
-				const book = responseData.data;
+				const book = await getBook(bookID)
 
 				setSingleBookState(book)
 			} catch (err) {

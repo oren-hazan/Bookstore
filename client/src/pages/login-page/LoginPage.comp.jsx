@@ -9,14 +9,14 @@ import LoginForm from './login-form/LoginForm.comp'
 const LoginPage = () => {
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(true);
-	const authContextValue = useContext(AuthContext);
+	const {userToken, adminToken} = useContext(AuthContext);
 	
 	useEffect(() => {
-		if (authContextValue.adminToken) {
+		if (adminToken) {
 			navigate('/admin/dashboard');
 			alert('Logout as a Admin first!');
 		}
-		else if (authContextValue.userToken) {
+		else if (userToken) {
 			navigate('/')
 		}
 		setTimeout(() => {

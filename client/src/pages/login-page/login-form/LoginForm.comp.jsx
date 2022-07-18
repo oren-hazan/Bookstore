@@ -10,14 +10,13 @@ import {
 	updatePasswordAction,
 } from '../../../actions/login-form.actions';
 import { AuthContext } from '../../../contexts/Auth.context';
+import { userLogin } from '../../../services/user.service'
 import isEmail from 'validator/lib/isEmail';
-import environment from '../../../environments/environments'
 
 const LoginForm = () => {
 
-	const API_URL = environment.API_URL;
 	const navigate = useNavigate();
-    const AuthContextValue = useContext(AuthContext);
+    const { setUserToken } = useContext(AuthContext);
 
 		const [loginFormState, dispatchLoginFormState] = useReducer(
 			loginReducer,
@@ -90,19 +89,10 @@ const LoginForm = () => {
 				};
 
 				try {
-					const response = await fetch(`${API_URL}/users/login`, {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify(data),
-					});
-					if (response.status !== 200) throw new Error();
-
-					const responseData = await response.json();
+					const responseData = await userLogin(data);
 					const token = responseData.data.token;
 					localStorage.setItem('token', token);
-					AuthContextValue.setUserToken(token);
+					setUserToken(token);
 
 					navigate('/');
 				} catch (err) {

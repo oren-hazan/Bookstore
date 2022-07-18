@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './update-book-form.styles.css';
-import validator from 'validator';
 import CustomInput from '../../../../components/shared/custom-input/CustomInput.comp';
 import bookFormReducer, {
 	BOOK_FORM_INITIAL_STATE,
@@ -16,11 +15,10 @@ import {
 	updateBookAction,
 	deleteBookAction,
 } from '../../../../actions/book-form.actions';
-import environment from '../../../../environments/environments';
+import { updateBook, deleteBook } from '../../../../services/book.service';
 
 const UpdateBookForm = (props) => {
 	const navigate = useNavigate();
-	const API_URL = environment.API_URL;
 	const adminToken = localStorage.getItem('admin-token');
 	const [bookFormState, dispatchBookFormState] = useReducer(
 		bookFormReducer,
@@ -28,6 +26,7 @@ const UpdateBookForm = (props) => {
 	);
 
 	const book = props.bookState;
+	const bookID = props.bookID;
 
 	const handleTitleInput = (event) => {
 		const textInput = event.target.value.trim();
@@ -90,7 +89,10 @@ const UpdateBookForm = (props) => {
 
 	const handleBookCoveredInput = (event) => {
 		const textInput = event.target.value.trim();
-		if (!validator.isURL(textInput) && textInput.length > 0) {
+		function isImage(url) {
+			return /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+		}
+		if (!isImage(textInput) && textInput.length > 0) {
 			dispatchBookFormState(
 				updateBookCoveredAction('', false, '*Not a valid URL')
 			);
@@ -153,26 +155,16 @@ const UpdateBookForm = (props) => {
 			(valid.pages || value.pages === '') &&
 			(valid.price || value.price === '')
 		) {
+			const data = {
+				title: value.title ? value.title : undefined,
+				author: value.author ? value.author : undefined,
+				description: value.description ? value.description : undefined,
+				bookCovered: value.bookCovered ? value.bookCovered : undefined,
+				pages: value.pages ? value.pages : undefined,
+				price: value.price ? value.price : undefined,
+			};
 			try {
-				const data = {
-					title: value.title ? value.title : undefined,
-					author: value.author ? value.author : undefined,
-					description: value.description ? value.description : undefined,
-					bookCovered: value.bookCovered ? value.bookCovered : undefined,
-					pages: value.pages ? value.pages : undefined,
-					price: value.price ? value.price : undefined,
-				};
-
-				const response = await fetch(`${API_URL}/books/${props.bookID}`, {
-					method: 'PATCH',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: 'Bearer ' + adminToken,
-					},
-					body: JSON.stringify(data),
-				});
-
-				if (response.status !== 200) throw new Error();
+				await updateBook(adminToken, bookID, data);
 
 				navigate('/admin');
 				alert('Book was updated successfully!');
@@ -186,14 +178,8 @@ const UpdateBookForm = (props) => {
 
 	const handleDeleteBook = async () => {
 		try {
-			const response = await fetch(`${API_URL}/books/${props.bookID}`, {
-				method: 'DELETE',
-				headers: {
-					Authorization: 'Bearer ' + adminToken,
-				},
-			});
-
-			if (response.status !== 200) throw new Error();
+			
+			await deleteBook(adminToken, bookID)
 
 			navigate('/admin');
 			alert('Book was deleted successfully!');

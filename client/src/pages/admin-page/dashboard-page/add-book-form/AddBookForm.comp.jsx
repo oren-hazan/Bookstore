@@ -14,10 +14,9 @@ import {
 	updatePagesAction,
 	updatePriceAction,
 } from '../../../../actions/book-form.actions';
-import environment from '../../../../environments/environments';
+import { createBook } from '../../../../services/book.service'
 
 const AddBookForm = (props) => {
-	const API_URL = environment.API_URL;
 	const adminToken = localStorage.getItem('admin-token');
 	const navigate = useNavigate();
 
@@ -133,16 +132,7 @@ const AddBookForm = (props) => {
 			};
 
 			try {
-				const response = await fetch(`${API_URL}/books/new`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: 'Bearer ' + adminToken,
-					},
-					body: JSON.stringify(data),
-				});
-
-				if (response.status !== 201) throw new Error();
+				await createBook(adminToken, data)
 
 				alert('New book was saved successfully!');
 				navigate('/admin');

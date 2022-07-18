@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import environment from '../../../../environments/environments';
 import UpdateBookForm from '../../dashboard-page/update-book-form/UpdateBookForm.comp'
 import './dashboard-books.styles.css'
-
-const API_URL = environment.API_URL;
+import { getAllBooks } from '../../../../services/book.service'
 
 const DashboardBooks = () => {
 	const navigate = useNavigate();
@@ -21,12 +19,7 @@ const DashboardBooks = () => {
 	useEffect(() => {
 		const getBooks = async () => {
 			try {
-				const response = await fetch(`${API_URL}/books`);
-				if (response.status !== 200) {
-					throw new Error();
-				}
-				const responseData = await response.json();
-				const books = responseData.data.books;
+				const books = await getAllBooks()
 
 				setBooksState(books);
 

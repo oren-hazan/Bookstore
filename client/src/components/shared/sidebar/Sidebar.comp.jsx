@@ -3,27 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import './sidebar.styles.css';
 import { AuthContext } from '../../../contexts/Auth.context';
 import { Icon } from '@iconify/react';
+import { userLogout } from '../../../services/user.service'
+import { adminLogout } from '../../../services/admin.service'
 
 const Sidebar = (props) => {
 	const AuthContextValue = useContext(AuthContext);
 	const navigate = useNavigate();
+	const userToken = AuthContextValue.userToken;
+	const adminToken = AuthContextValue.adminToken;
 
 	const handleLogout = async () => {
 		try {
-			const response = await fetch(`http://localhost:3000/${AuthContextValue.userToken ? 'users' : 'admin'}/logout`, {
-				method: 'POST',
-				headers: {
-					Authorization: 'Bearer ' + (AuthContextValue.userToken ? AuthContextValue.userToken : AuthContextValue.adminToken),
-				},
-			});
-			if (response.status !== 200) {
-				throw new Error();
-			}
-			const responseObj = await response.json();
-			console.log(responseObj);
+			userToken ? AuthContextValue.setUserToken(null) : AuthContextValue.setAdminToken(null)
+			userToken ? await userLogout(userToken) : await adminLogout(adminToken); 
 
-			(AuthContextValue.userToken ? localStorage.removeItem('token') : localStorage.removeItem('admin-token'));
-			(AuthContextValue.userToken ? AuthContextValue.setUserToken(null) : AuthContextValue.setAdminToken(null));
 			props.hideSidebar();
 			navigate('/');
 		} catch (err) {

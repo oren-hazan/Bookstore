@@ -8,20 +8,19 @@ import AdminLoginForm from './admin-login-form/AdminLoginForm.comp';
 const AdminLoginPage = () => {
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(true);
-	const authContextValue = useContext(AuthContext);
-	const user = authContextValue.userToken;
+	const { userToken, adminToken } = useContext(AuthContext);
 
 	useEffect(() => {
-		if (user) {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+		if (userToken) {
 			navigate('/');
 			alert('Logout as a user first!');
-		} else if (authContextValue.adminToken) {
+		} else if (adminToken) {
 			navigate('/admin/dashboard');
-		} else {
-			setTimeout(() => {
-				setIsLoading(false);
-			}, 2000);
-		}
+		} 
+		
 	}, []);
 
 	return isLoading ? (

@@ -3,16 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './single-book.styles.css';
 import { AuthContext } from '../../../contexts/Auth.context';
 import Loader from '../../../components/shared/loader/Loader.comp';
-import environment from '../../../environments/environments'
-
-const API_URL = environment.API_URL
+import { addToUserCart } from '../../../services/cart.service';
 
 const SingleBook = (props) => {
 	const navigate = useNavigate();
 	const params = useParams();
 	const [isLoading, setIsLoading] = useState(true);
-	const authContextValue = useContext(AuthContext);
-	const userToken = authContextValue.userToken;
+	const { userToken } = useContext(AuthContext);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -30,18 +27,7 @@ const SingleBook = (props) => {
 				const bookID = params.bookID;
 	
 				try {
-					const response = await fetch(`${API_URL}/cart/add-to-cart`, {
-						method: 'PATCH',
-						headers: {
-							'Content-Type': 'application/json',
-							Authorization: 'Bearer ' + userToken,
-						},
-						body: JSON.stringify({ bookID }),
-					});
-	
-					if (response.status !== 202) throw new Error();
-	
-					alert('Book saved successfully!')
+				await addToUserCart(userToken, bookID);
 				} catch (err) {
 					alert('Something went wrong!');
 				}

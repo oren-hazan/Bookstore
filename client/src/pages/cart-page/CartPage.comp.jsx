@@ -3,18 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import './cart-page.styles.css';
 import { AuthContext } from '../../contexts/Auth.context';
 import Loader from '../../components/shared/loader/Loader.comp';
-import environment from '../../environments/environments';
 import CartBook from './cart-book/CartBook.comp';
-
-const API_URL = environment.API_URL;
+import { getUserCart, deleteFromCart, checkOut } from '../../services/cart.service'
 
 const CartPage = () => {
 	const navigate = useNavigate();
-	const authContextValue = useContext(AuthContext);
+	const { userToken } = useContext(AuthContext);
 	const [cartState, setCartState] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [price, setPrice] = useState('');
-	const userToken = authContextValue.userToken;
 
 	const calcPrice = (cart) => {
 		const pricesArray = [];
@@ -32,18 +29,7 @@ const CartPage = () => {
 
 	const handleClick = async (bookID) => {
 		try {
-			const response = await fetch(`${API_URL}/cart`, {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + userToken,
-				},
-				body: JSON.stringify({ _id: bookID }),
-			});
-
-			if (response.status !== 200) throw new Error();
-			const responseData = await response.json();
-			const cart = responseData.data.books;
+			const cart = await deleteFromCart(userToken, bookID);
 			setCartState(cart);
 
 			calcPrice(cart);
@@ -54,15 +40,7 @@ const CartPage = () => {
 
 	const handleCheckout = async () => {
 		try {
-			const response = await fetch(`${API_URL}/cart/checkout`, {
-				method: 'PATCH',
-				headers: {
-					Authorization: 'Bearer ' + userToken,
-				},
-			});
-			if (response.status !== 202) throw new Error();
-			const responseData = await response.json();
-			const cart = responseData.data.books;
+			const cart = await checkOut(userToken)
 			setCartState(cart);
 		} catch {
 			alert('Something went wrong!');
@@ -75,15 +53,9 @@ const CartPage = () => {
 			alert('You must be logged in!');
 		} else {
 			const getCart = async () => {
-				const response = await fetch(`${API_URL}/cart`, {
-					headers: {
-						Authorization: 'Bearer ' + userToken,
-					},
-				});
-				if (response.status !== 200) throw new Error();
 
-				const responseData = await response.json();
-				const cart = responseData.data.cart;
+				const cart = await getUserCart(userToken);
+				
 				setCartState(cart);
 
 				calcPrice(cart);

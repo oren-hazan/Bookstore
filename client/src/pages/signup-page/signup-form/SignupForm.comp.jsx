@@ -12,16 +12,14 @@ import {
 	updateRepeatedPasswordAction,
 } from '../../../actions/signup-form.actions';
 import { AuthContext } from '../../../contexts/Auth.context';
-import environment from '../../../environments/environments';
+import { userSignup } from '../../../services/user.service'
 import CustomInput from '../../../components/shared/custom-input/CustomInput.comp';
 import './signup-form.styles.css';
-
-const API_URL = environment.API_URL;
 
 const SignupForm = () => {
 	const navigate = useNavigate();
 
-	const AuthContextValue = useContext(AuthContext);
+	const { setUserToken} = useContext(AuthContext);
 
 	const [signupFormState, dispatchSignupFormState] = useReducer(
 		signupReducer,
@@ -153,21 +151,10 @@ const SignupForm = () => {
 			};
 
 			try {
-				const response = await fetch(`${API_URL}/users/new`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				});
-
-				if (response.status !== 201) {
-					throw new Error();
-				}
-				const responseData = await response.json();
+				const responseData = await userSignup(data)
 				const token = responseData.data.token;
 				localStorage.setItem('token', token);
-				AuthContextValue.setUserToken(token);
+				setUserToken(token);
 				navigate('/');
 			} catch (err) {
 				alert('Something went wrong!');

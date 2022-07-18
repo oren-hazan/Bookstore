@@ -12,10 +12,10 @@ const AuthContextProvider = (props) => {
 	const [adminToken, setAdminToken] = useState(ADMIN_INITIAL_STATE);
 
 	const value = {
-		userToken: userToken,
-		setUserToken: setUserToken,
-		adminToken: adminToken,
-		setAdminToken: setAdminToken,
+		userToken,
+		setUserToken,
+		adminToken,
+		setAdminToken,
 	};
 
 	return (
